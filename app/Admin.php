@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable
 {
-    use Notifiable,Uuids;
+    use Notifiable, Uuids;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -16,7 +16,7 @@ class Admin extends Authenticatable
      */
     public $incrementing = false;
 
-    
+
     /**
      * The attributes that are mass assignable.
      *
