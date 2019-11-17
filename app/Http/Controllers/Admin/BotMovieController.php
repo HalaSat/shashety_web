@@ -10,7 +10,6 @@ use App\Subtitle;
 use App\Tmdb;
 use App\Traits\FFmpegTranscoding;
 use App\Video;
-use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -18,7 +17,7 @@ use Intervention\Image\Facades\Image;
 use \Done\Subtitles\Subtitles;
 use Illuminate\Support\Facades\App;
 
-class MovieController extends Controller
+class BotMovieController extends Controller
 {
     use FFmpegTranscoding;
 
@@ -32,12 +31,7 @@ class MovieController extends Controller
      * @return void
      */
     public function __construct()
-    {
-        $this->middleware(function ($request, $next) {
-            $this->admin = Auth::user()->authorizeRoles(['admin', 'manager']);
-            return $next($request);
-        });
-    }
+    { }
 
     /**
      * Display a listing of the resource.

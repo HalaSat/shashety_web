@@ -59,6 +59,7 @@ trait FFmpegTranscoding
                 }
             })->toDisk('public');
 
+
         foreach ($resolution as $key => $value) {
             if ($value['Resolution'] === '4k') {
                 $convert->addFormat($ultraHighBitrate);
@@ -295,7 +296,7 @@ trait FFmpegTranscoding
         }
     }
 
-    public function transcodeVideoToMp4($resolution, $id, $path, $tmdb_id, $cloud, $item_name)
+    public function transcodeVideoToMp4($resolution, $id, $path, $tmdb_id, $cloud, $item_name, $file)
     {
 
         // Check Cloud Disl
@@ -402,17 +403,27 @@ trait FFmpegTranscoding
                 });
 
                 $newNameMP4 = str_random(20) . '-720.mp4';
-                $convertHigh = FFMpeg::fromDisk('public')
-                    ->open($path)
-                    ->addFilter(function ($filters) {
-                        if ($this->Watermark !== null) {
-                            $filters->watermark(storage_path('/app/public/watermark/' . Transcoder::first()->watermark_url), $this->Watermark);
-                        }
-                    })
-                    ->export()
-                    ->toDisk($cloud_name)
-                    ->inFormat($highBitrate)
-                    ->save('movies/' . $item_name . '/' . $newNameMP4);
+                // $convertHigh = FFMpeg::fromDisk('public')
+                //     ->open($path)
+                //     ->addFilter(function ($filters) {
+                //         if ($this->Watermark !== null) {
+                //             $filters->watermark(storage_path('/app/public/watermark/' . Transcoder::first()->watermark_url), $this->Watermark);
+                //         }
+                //     })
+                //     ->export()
+                //     ->toDisk($cloud_name)
+                //     ->inFormat($highBitrate)
+                //     ->save('movies/' . $item_name . '/' . $newNameMP4);
+
+                // $from = $path;
+                // $to = 'movies/' . $item_name . '/' . $newNameMP4;
+                // try {
+                //     mkdir('movies/' . $item_name);
+                //     File::move($from, $to);
+                // } catch(Exception $e){
+                //     echo 'Caught exception: ',$e->getMessage(),"\n";
+                // }
+                Storage::disk('public')->putFileAs('movies/' . $item_name . '/', $file, $newNameMP4);
 
                 // Store video data
                 $video = new Video();
@@ -480,7 +491,7 @@ trait FFmpegTranscoding
                         if ($this->Watermark !== null) {
                             $filters->watermark(storage_path('/app/public/watermark/' . Transcoder::first()->watermark_url), $this->Watermark);
                         }
-                    })
+		    })
                     ->export()
                     ->toDisk($cloud_name)
                     ->inFormat($lowBitrate)

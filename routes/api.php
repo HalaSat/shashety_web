@@ -28,7 +28,6 @@ Route::middleware('throttle:60,1')->group(function () {
     Route::get('/v1/get/app/plan', function () {
 
         return response()->json(['status' => 'success', 'data' => Braintree::get()]);
-
     });
 
 
@@ -40,8 +39,8 @@ Route::middleware('throttle:60,1')->group(function () {
     Route::post('/v1/update/register/password', 'Users\RegisterController@recoverPassword');
 
     // Get movie and episode video,details -- Player
- 
-    
+
+
     // Device Confirm
     Route::get('/v1/register/verify/device/{token}', 'Users\RegisterController@confirmDevice')->name('confirm_device');
 
@@ -155,11 +154,9 @@ Route::middleware('throttle:60,1')->group(function () {
 
         // Get all seasons
         Route::post('/get/series/season', 'Users\VideoPlayerController@getSeason');
-
-
     });
 
-    Route::group(['prefix' => 'v1'], function() {
+    Route::group(['prefix' => 'v1'], function () {
         Route::post('/get/watch/movie', 'Users\VideoPlayerController@getMovieVideo');
         Route::post('/get/watch/series', 'Users\VideoPlayerControllerNoAuth@getEpisodeVideo');
         Route::get('/get/watch/tv/{id}', 'Users\TvController@getChannelDetails');
@@ -207,8 +204,6 @@ Route::middleware('throttle:60,1')->group(function () {
         Route::get('/ghost/get/cast/{id}', 'Ghost\CastController@getCastDetails')->where('id', '^[\w-]*$');
 
         // // Get movie and episode video,details -- Player
-      
+
     });
-
 });
-

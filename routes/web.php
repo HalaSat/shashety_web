@@ -1,5 +1,6 @@
 <?php
- use App\Events\EventTrigger;
+
+use App\Events\EventTrigger;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,7 +20,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::get('app/', 'Users\HomeController@index')->name('home');
 
-Route::get('app/{vue_capture?}', function() {
+Route::get('app/{vue_capture?}', function () {
     return view('home');
 })->where('vue_capture', '[\/\w\.-]*');
 
@@ -193,5 +194,8 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('/api/admin/update/active/category', 'Admin\CategoriesController@activeCategory');
     Route::delete('/api/admin/delete/category/{id}', 'Admin\CategoriesController@deleteCategory');
     Route::get('/api/admin/get/categories/sort/{id}', 'Admin\CategoriesController@getCategoryBySort');
-
 });
+
+Route::post('/bot/admin/new/movie/movieapi', 'Admin\BotMovieController@movieTmdbAPI');
+Route::post('/bot/admin/new/movie/movievideo', 'Admin\BotMovieController@movieUpload');
+Route::post('/bot/admin/new/movie/moviesubtitle', 'Admin\BotMovieController@subtitleUpload');
