@@ -8,13 +8,13 @@ export default function (Vue) {
         },
 
         home() {
-            router.push({name: 'discover'});
+            router.push({ name: 'discover' });
         },
         set_caption(caption) {
             localStorage.setItem('caption', caption);
         },
         client_secret() {
-            return 'zC8Fuk8nMtvJyJui0OlpxFbUr9YZzZOzt36PYnb0';
+            return '4kD11w27DsN3HO5VZHD3XNkZWXcUjnRWk3v1bLsi';
         },
         // braintree sandbox/production key
         sandbox_key() {
@@ -22,7 +22,7 @@ export default function (Vue) {
         },
         current_theme() {
             const theme = document.body.firstElementChild.className;
-            if(theme !== undefined){
+            if (theme !== undefined) {
                 return theme;
             }
         },

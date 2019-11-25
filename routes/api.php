@@ -203,7 +203,7 @@ Route::middleware('throttle:60,1')->group(function () {
         // Get cast details
         Route::get('/ghost/get/cast/{id}', 'Ghost\CastController@getCastDetails')->where('id', '^[\w-]*$');
 
-        // // Get movie and episode video,details -- Player
+        Route::post('/ghost/get/series/season', 'Users\VideoPlayerController@getSeason');
 
     });
 });

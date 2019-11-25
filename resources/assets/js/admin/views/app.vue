@@ -111,6 +111,12 @@
                                     <strong>Categories</strong>
                                 </router-link>
                             </li>
+                             <li>
+                                <router-link :to="{name:'discover-categories-manage'}">
+                                    <img src="/themes/default/img/admin/categories.svg" alt="Categories" width="20px">
+                                    <strong>Discover Categories</strong>
+                                </router-link>
+                            </li>
                             <li>
                                 <router-link :to="{name:'tv-manage'}">
                                     <img src="/themes/default/img/admin/tv.svg" alt="tv" width="23px">
@@ -289,6 +295,12 @@
                                 <router-link :to="{name:'categories-manage'}">
                                     <img src="/themes/default/img/admin/categories.svg" alt="Categories" width="20px">
                                     <strong>Categories</strong>
+                                </router-link>
+                            </li>
+                              <li>
+                                <router-link :to="{name:'discover-categories-manage'}">
+                                    <img src="/themes/default/img/admin/categories.svg" alt="Categories" width="20px">
+                                    <strong>Discover</strong>
                                 </router-link>
                             </li>
                             <li>

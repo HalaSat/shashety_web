@@ -99,7 +99,7 @@ class VideoPlayerControllerNoAuth extends Controller
                                 } elseif ($videoValue->video_cloud === 'link') {
                                     $videoArray[$key]['file'] = $videoValue->video_url;
                                 } else {
-                                    $videoArray[$key]['file'] = config('aws.cloudfront_private_url') .'/'. $videoValue->video_url;
+                                    $videoArray[$key]['file'] = config('aws.cloudfront_private_url') . '/' . $videoValue->video_url;
                                 }
 
                                 $videoArray[$key]['type'] = 'application/vnd.apple.mpegurl';
@@ -109,7 +109,7 @@ class VideoPlayerControllerNoAuth extends Controller
                                 } elseif ($videoValue->video_cloud === 'link') {
                                     $videoArray[$key]['file'] = $videoValue->video_url;
                                 } else {
-                                    $videoArray[$key]['file'] = config('aws.cloudfront_private_url') .'/'. $videoValue->video_url;
+                                    $videoArray[$key]['file'] = config('aws.cloudfront_private_url') . '/' . $videoValue->video_url;
                                 }
 
                                 if ($videoValue->resolution == '4k') {
@@ -137,7 +137,8 @@ class VideoPlayerControllerNoAuth extends Controller
                             $subArray[] = [
                                 'file' => url('/') . $subValue->name,
                                 'label' => ucwords($subValue->language),
-                                "kind" => "captions"
+                                "kind" => "captions",
+                                "default" => ucwords($subValue->language) == "ARABIC"
                             ];
                         }
                     }
@@ -172,7 +173,8 @@ class VideoPlayerControllerNoAuth extends Controller
 
 
             return response()->json(
-                ['status' => 'success',
+                [
+                    'status' => 'success',
                     'data' => [
                         'playlist' => [
                             'playlist' => $playlist
@@ -183,7 +185,8 @@ class VideoPlayerControllerNoAuth extends Controller
                         'current_episode' => $seasonArray[0],
                         'geo_status' => true
 
-                    ]]
+                    ]
+                ]
             );
         }
 
@@ -207,7 +210,7 @@ class VideoPlayerControllerNoAuth extends Controller
                 ->leftJoin('recently_watcheds', function ($join) {
                     $join->on('recently_watcheds.episode_id', '=', 'episodes.id')
                         ->where('recently_watcheds.uid', '=', Auth::id());
-                }) 
+                })
                 ->where('episodes.series_id', $request->input('series_id'))
                 ->where('episodes.season_number', $checkAlreadyEpisode->season_number)
                 ->where('episodes.show', '<>', 0)
@@ -263,7 +266,6 @@ class VideoPlayerControllerNoAuth extends Controller
                                     $videoArray[$key]['file'] = $videoValue->video_url;
                                 } else {
                                     $videoArray[$key]['file'] = config('aws.cloudfront_private_url') . '/' . $videoValue->video_url;
-
                                 }
 
                                 if ($videoValue->resolution == '4k') {
@@ -291,7 +293,8 @@ class VideoPlayerControllerNoAuth extends Controller
                             $subArray[] = [
                                 'file' => url('/') . $subValue->name,
                                 'label' => ucwords($subValue->language),
-                                "kind" => "captions"
+                                "kind" => "captions",
+                                "default" => ucwords($subValue->language) == "ARABIC"
                             ];
                         }
                     }
@@ -340,7 +343,8 @@ class VideoPlayerControllerNoAuth extends Controller
 
 
             return response()->json(
-                ['status' => 'success',
+                [
+                    'status' => 'success',
                     'data' => [
                         'playlist' => [
                             'playlist' => $playlist
@@ -351,7 +355,8 @@ class VideoPlayerControllerNoAuth extends Controller
                         'current_episode' => $current_episode,
                         'geo_status' => true
 
-                    ]]
+                    ]
+                ]
             );
         }
 
@@ -438,7 +443,6 @@ class VideoPlayerControllerNoAuth extends Controller
                                     $videoArray[$key]['file'] = $videoValue->video_url;
                                 } else {
                                     $videoArray[$key]['file'] = config('aws.cloudfront_private_url') . '/' . $videoValue->video_url;
-
                                 }
 
                                 if ($videoValue->resolution == '4k') {
@@ -469,7 +473,8 @@ class VideoPlayerControllerNoAuth extends Controller
                             $subArray[] = [
                                 'file' => url('/') . $subValue->name,
                                 'label' => ucwords($subValue->language),
-                                "kind" => "captions"
+                                "kind" => "captions",
+                                "default" => ucwords($subValue->language) == "ARABIC"
                             ];
                         }
                     }
@@ -551,7 +556,8 @@ class VideoPlayerControllerNoAuth extends Controller
 
 
             return response()->json(
-                ['status' => 'success',
+                [
+                    'status' => 'success',
                     'data' => [
                         'playlist' => [
                             'playlist' => $playlist
@@ -562,7 +568,8 @@ class VideoPlayerControllerNoAuth extends Controller
                         'current_episode' => $current_episode,
                         'geo_status' => true
 
-                    ]]
+                    ]
+                ]
             )->cookie($cookie_key)
                 ->cookie($cookie_policy)
                 ->cookie($cookie_signature);
@@ -741,7 +748,8 @@ class VideoPlayerControllerNoAuth extends Controller
         }
 
         return response()->json(
-            ['status' => 'success',
+            [
+                'status' => 'success',
                 'data' => $seasonArray
             ]
         );

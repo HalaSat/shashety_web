@@ -48,11 +48,26 @@ const module = {
          */
         DELETE_CATEGORY({ commit }, { id, key }) {
             commit('BUTTON_LOAD', id);
-            axios.delete('/api/admin/delete/category/' + id).then(response => {
+            axios.delete('/api/admin/delete/discover-category/' + id).then(response => {
                 if (response.status === 200) {
                     alertify.logPosition('top right');
                     alertify.success('Successful Delete');
                     commit('DELETE_CATEGORY', key);
+                    commit('BUTTON_CLEAN');
+                }
+            }, error => {
+                alertify.logPosition('top right');
+                alertify.error(error.response.data.message);
+                commit('BUTTON_CLEAN');
+            });
+        },
+
+        ADD_TO_DISCOVER({ commit }, { id }) {
+            commit('BUTTON_LOAD', id);
+            axios.post('/api/admin/add/discover-category/', { category_id: id }).then(response => {
+                if (response.status === 200) {
+                    alertify.logPosition('top right');
+                    alertify.success('Successfully added to discover');
                     commit('BUTTON_CLEAN');
                 }
             }, error => {

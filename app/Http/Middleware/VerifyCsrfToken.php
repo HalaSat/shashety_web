@@ -13,8 +13,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        '/bot/admin/new/movie/movieapi',
-        '/bot/admin/new/movie/movievideo',
-        '/bot/admin/new/movie/moviesubtitle'
+        '/api/admin/add/discover-category',
+        '/api/admin/delete/discover-category'
     ];
 }

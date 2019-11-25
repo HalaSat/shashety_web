@@ -449,10 +449,8 @@
                     aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand hidden-sm-down">
-                    <img src="/images/logo.png" alt="logo" width="100%">
-                </a>
-
+                <router-link class="navbar-brand hidden-sm-down" :to="{name: 'discover'}"><img src="/images/logo.png" alt="logo" width="100%"></router-link>
+              
                 <div class="offset-xl-1 collapse navbar-collapse " id="navbarTogglerDemo02">
                     <ul class="navbar-nav mr-auto mt-2 mt-md-0">
                         <li class="nav-item">

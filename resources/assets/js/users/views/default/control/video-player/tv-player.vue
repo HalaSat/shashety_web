@@ -141,7 +141,7 @@
                                         this.report_button = false;
                                         this.$store.commit("CLOSE_REPORT");
                                         alertify.logPosition("top right");
-                                        alertify.success("Successful Send, our team will check it soon");
+                                        alertify.success("Successfully sent, our team will check it soon");
                                     }
                                 },
                                 error => {

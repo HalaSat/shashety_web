@@ -42,6 +42,9 @@
                                 <router-link class="btn btn-sm btn-warning btn-sm mr-2" role="buttton" :to="{ name:'edit-category', params: {id: item.id}}">
                                     Edit
                                 </router-link>
+                                <button class="btn btn-sm btn-warning btn-sm mr-2" @click="DISCOVER(item.id,index)" :id="item.id">
+                                    Discover
+                                </button>
                                 <button class="btn btn-sm btn-danger btn-sm mr-2" @click="DELETE(item.id,index)" :id="item.id">
                                     Delete
                                 </button>
@@ -103,6 +106,10 @@
                         });
                     }
                 });
+            },
+
+            DISCOVER(id, key) {
+                this.$store.dispatch("ADD_TO_DISCOVER", {id,key});
             },
 
             ACTIVE(id, key, type) {

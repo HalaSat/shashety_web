@@ -128,10 +128,15 @@ POLICY;
             $getSubtitle = null;
         } else {
             foreach ($getSubtitle as $key => $subValue) {
-                $subArray[] = [
+                $subArray[] = ucwords($subValue->language) == 'ARABIC' ? [
                     'file' => url('/') . $subValue->name,
                     'label' => ucwords($subValue->language),
-                    "kind" => "captions"
+                    "kind" => "captions",
+                    "default" => true
+                ] : [
+                    'file' => url('/') . $subValue->name,
+                    'label' => ucwords($subValue->language),
+                    "kind" => "captions",
                 ];
             }
         }
@@ -245,7 +250,8 @@ POLICY;
 
 
         return response()->json(
-            ['status' => 'success',
+            [
+                'status' => 'success',
                 'data' => [
                     'playlist' => [
                         'playlist' => $playlist
@@ -254,7 +260,8 @@ POLICY;
                     'current_movie' => $checkMovie,
                     'geo_status' => true
 
-                ]]
+                ]
+            ]
         );
     }
 
@@ -337,7 +344,7 @@ POLICY;
                                 } elseif ($videoValue->video_cloud === 'link') {
                                     $videoArray[$key]['file'] = $videoValue->video_url;
                                 } else {
-                                    $videoArray[$key]['file'] = config('aws.cloudfront_private_url') .'/'. $videoValue->video_url;
+                                    $videoArray[$key]['file'] = config('aws.cloudfront_private_url') . '/' . $videoValue->video_url;
                                 }
 
                                 $videoArray[$key]['type'] = 'application/vnd.apple.mpegurl';
@@ -347,7 +354,7 @@ POLICY;
                                 } elseif ($videoValue->video_cloud === 'link') {
                                     $videoArray[$key]['file'] = $videoValue->video_url;
                                 } else {
-                                    $videoArray[$key]['file'] = config('aws.cloudfront_private_url') .'/'. $videoValue->video_url;
+                                    $videoArray[$key]['file'] = config('aws.cloudfront_private_url') . '/' . $videoValue->video_url;
                                 }
 
                                 if ($videoValue->resolution == '4k') {
@@ -372,7 +379,12 @@ POLICY;
                         $getSubtitle = null;
                     } else {
                         foreach ($getSubtitle as $key => $subValue) {
-                            $subArray[] = [
+                            $subArray[] = ucwords($subValue->language) == 'ARABIC' ? [
+                                'file' => url('/') . $subValue->name,
+                                'label' => ucwords($subValue->language),
+                                "kind" => "captions",
+                                "default" => true
+                            ] : [
                                 'file' => url('/') . $subValue->name,
                                 'label' => ucwords($subValue->language),
                                 "kind" => "captions"
@@ -410,7 +422,8 @@ POLICY;
 
 
             return response()->json(
-                ['status' => 'success',
+                [
+                    'status' => 'success',
                     'data' => [
                         'playlist' => [
                             'playlist' => $playlist
@@ -421,7 +434,8 @@ POLICY;
                         'current_episode' => $seasonArray[0],
                         'geo_status' => true
 
-                    ]]
+                    ]
+                ]
             );
         }
 
@@ -445,7 +459,7 @@ POLICY;
                 ->leftJoin('recently_watcheds', function ($join) {
                     $join->on('recently_watcheds.episode_id', '=', 'episodes.id')
                         ->where('recently_watcheds.uid', '=', Auth::id());
-                }) 
+                })
                 ->where('episodes.series_id', $request->input('series_id'))
                 ->where('episodes.season_number', $checkAlreadyEpisode->season_number)
                 ->where('episodes.show', '<>', 0)
@@ -501,7 +515,6 @@ POLICY;
                                     $videoArray[$key]['file'] = $videoValue->video_url;
                                 } else {
                                     $videoArray[$key]['file'] = config('aws.cloudfront_private_url') . '/' . $videoValue->video_url;
-
                                 }
 
                                 if ($videoValue->resolution == '4k') {
@@ -526,7 +539,12 @@ POLICY;
                         $getSubtitle = null;
                     } else {
                         foreach ($getSubtitle as $key => $subValue) {
-                            $subArray[] = [
+                            $subArray[] = ucwords($subValue->language) == 'ARABIC' ? [
+                                'file' => url('/') . $subValue->name,
+                                'label' => ucwords($subValue->language),
+                                "kind" => "captions",
+                                "default" => true
+                            ] : [
                                 'file' => url('/') . $subValue->name,
                                 'label' => ucwords($subValue->language),
                                 "kind" => "captions"
@@ -578,7 +596,8 @@ POLICY;
 
 
             return response()->json(
-                ['status' => 'success',
+                [
+                    'status' => 'success',
                     'data' => [
                         'playlist' => [
                             'playlist' => $playlist
@@ -589,7 +608,8 @@ POLICY;
                         'current_episode' => $current_episode,
                         'geo_status' => true
 
-                    ]]
+                    ]
+                ]
             );
         }
 
@@ -676,7 +696,6 @@ POLICY;
                                     $videoArray[$key]['file'] = $videoValue->video_url;
                                 } else {
                                     $videoArray[$key]['file'] = config('aws.cloudfront_private_url') . '/' . $videoValue->video_url;
-
                                 }
 
                                 if ($videoValue->resolution == '4k') {
@@ -704,7 +723,12 @@ POLICY;
                         $getSubtitle = null;
                     } else {
                         foreach ($getSubtitle as $key => $subValue) {
-                            $subArray[] = [
+                            $subArray[] = ucwords($subValue->language) == 'ARABIC' ? [
+                                'file' => url('/') . $subValue->name,
+                                'label' => ucwords($subValue->language),
+                                "kind" => "captions",
+                                "default" => true
+                            ] : [
                                 'file' => url('/') . $subValue->name,
                                 'label' => ucwords($subValue->language),
                                 "kind" => "captions"
@@ -789,7 +813,8 @@ POLICY;
 
 
             return response()->json(
-                ['status' => 'success',
+                [
+                    'status' => 'success',
                     'data' => [
                         'playlist' => [
                             'playlist' => $playlist
@@ -800,7 +825,8 @@ POLICY;
                         'current_episode' => $current_episode,
                         'geo_status' => true
 
-                    ]]
+                    ]
+                ]
             )->cookie($cookie_key)
                 ->cookie($cookie_policy)
                 ->cookie($cookie_signature);
@@ -979,7 +1005,8 @@ POLICY;
         }
 
         return response()->json(
-            ['status' => 'success',
+            [
+                'status' => 'success',
                 'data' => $seasonArray
             ]
         );

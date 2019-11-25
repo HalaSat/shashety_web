@@ -111,8 +111,8 @@
                                     </div>
                                     <div class="col-12">
                                         <input type="file" id="video" @change="infoShow('video','videoFileDetails')"
-                                               class="inputfile">
-                                        <label id="videoLabel" for="video" multiple>Choose an Episode Video
+                                               class="inputfile" multiple>
+                                        <label id="videoLabel" for="video">Choose an Episode Video
                                             <br>
                                             <p id="videoFileDetails"></p>
                                         </label>

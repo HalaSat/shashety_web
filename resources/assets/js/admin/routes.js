@@ -6,60 +6,60 @@ let routes = [
         path: '/',
         component: require('./views/dashboard')
     },
-	{
-		name: 'movies-manage',
-		path: '/movies/manage',
-		component: require('./views/movies/movies-manage')
-	},
+    {
+        name: 'movies-manage',
+        path: '/movies/manage',
+        component: require('./views/movies/movies-manage')
+    },
 
-	{
-		name: 'movie-api',
-		path: '/movies/new-movie-api',
-		component: require('./views/movies/new-movie-api.vue')
-	},
+    {
+        name: 'movie-api',
+        path: '/movies/new-movie-api',
+        component: require('./views/movies/new-movie-api.vue')
+    },
 
-	{
-		name: 'movie-custom',
-		path: '/movies/new-movie-custom',
-		component: require('./views/movies/new-movie-custom.vue')
-	},
-	{
-		path: '/movies/movie-edit/:id',
-		name: 'movie_edit',
-		component: require('./views/movies/movie-edit.vue')
-	},
-	{
-		name: 'analysis-movie',
+    {
+        name: 'movie-custom',
+        path: '/movies/new-movie-custom',
+        component: require('./views/movies/new-movie-custom.vue')
+    },
+    {
+        path: '/movies/movie-edit/:id',
+        name: 'movie_edit',
+        component: require('./views/movies/movie-edit.vue')
+    },
+    {
+        name: 'analysis-movie',
         path: '/movies/analysis/:id',
-		component: require('./views/movies/analysis-movie.vue')
-	},
-	//Series
-	{
-		name: 'series-manage',
-		path: '/series/manage',
-		component: require('./views/series/manage')
-	},
-	{
-		name: 'series-api',
-		path: '/series/new-series-api',
-		component: require('./views/series/new-series-api.vue')
-	},
+        component: require('./views/movies/analysis-movie.vue')
+    },
+    //Series
+    {
+        name: 'series-manage',
+        path: '/series/manage',
+        component: require('./views/series/manage')
+    },
+    {
+        name: 'series-api',
+        path: '/series/new-series-api',
+        component: require('./views/series/new-series-api.vue')
+    },
 
-	{
-		name: 'series-custom',
-		path: '/series/new-series-custom',
-		component: require('./views/series/new-series-custom.vue')
-	},
-	{
-		name: 'series_manage_id',
-		path: '/series/series-manage/:id',
-		component: require('./views/series/series-manage.vue')
-	},
-	{
-		name: 'new_series_episode',
-		path: '/series/series-manage/:id/new-series-episode',
-		component: require('./views/series/new-series-episode.vue')
-	},
+    {
+        name: 'series-custom',
+        path: '/series/new-series-custom',
+        component: require('./views/series/new-series-custom.vue')
+    },
+    {
+        name: 'series_manage_id',
+        path: '/series/series-manage/:id',
+        component: require('./views/series/series-manage.vue')
+    },
+    {
+        name: 'new_series_episode',
+        path: '/series/series-manage/:id/new-series-episode',
+        component: require('./views/series/new-series-episode.vue')
+    },
 
     {
         name: 'new_series_episode_custome',
@@ -72,16 +72,16 @@ let routes = [
         component: require('./views/series/episode-edit.vue')
     },
 
-	{
-		name: 'series_edit',
+    {
+        name: 'series_edit',
         path: '/series/series-edit/:id',
-		component: require('./views/series/series-edit.vue')
-	},
-	{
-		name: 'analysis-series',
+        component: require('./views/series/series-edit.vue')
+    },
+    {
+        name: 'analysis-series',
         path: '/series/analysis-series/:id',
-		component: require('./views/series/analysis-series.vue')
-	},
+        component: require('./views/series/analysis-series.vue')
+    },
     {
         path: '/top/manage',
         name: 'top-manage',
@@ -220,6 +220,12 @@ let routes = [
     },
 
     {
+        path: '/discover-categories/manage',
+        name: 'discover-categories-manage',
+        component: require('./views/discover-categories/manage.vue')
+    },
+
+    {
         path: '/category/create',
         name: 'create-category',
         component: require('./views/categories/create.vue')
@@ -238,6 +244,6 @@ let routes = [
 ];
 
 export default new VueRouter({
-	routes
+    routes
 });
 

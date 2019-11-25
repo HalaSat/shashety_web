@@ -11,6 +11,7 @@ import users from './modules/users';
 import admins from './modules/admins';
 import support from './modules/support';
 import categories from './modules/categories';
+import discoverCategories from './modules/discover-categories';
 import event from './modules/event';
 Vue.use(Vuex);
 
@@ -29,6 +30,7 @@ export default new Vuex.Store({
         admins,
         support,
         categories,
+        discoverCategories,
         event,
     }
 });

@@ -94,7 +94,7 @@
                             <label>Name</label>
                         </div>
                         <div class="col-12">
-                            <input v-validate="'required|max:30'" name="name" class="form-control"
+                            <input v-validate="'required|max:100'" name="name" class="form-control"
                                    v-model="data.movie.name" type="text" placeholder="Name"
                             />
                             <span v-show="errors.has('name')" class="is-danger">{{ errors.first('name') }}</span>

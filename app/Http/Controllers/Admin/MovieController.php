@@ -51,8 +51,7 @@ class MovieController extends Controller
                         movies.m_name AS name,
                         movies.m_poster AS poster,
                         movies.m_year AS year,
-                        categories.name AS category,
-                        movies.show,
+                        categories.name AS category, movies.show,
                         movies.m_cloud,
                         movies.created_at,
                         movies.updated_at,
@@ -136,9 +135,16 @@ class MovieController extends Controller
             if ($update->m_cloud === 'local') {
                 foreach ($request->file('subtitleUpload') as $key => $value) {
                     $file = file_get_contents($value);
-                    $subtitles = Subtitles::load($file, 'srt');
+                    $extension = $value->getClientOriginalExtension();
+                    $extension = strtolower($extension);
                     $name = uniqid('subtitle_') . '.vtt';
-                    Storage::disk('public')->put('subtitles/' . $update->m_name . '/' . $name, $subtitles->content('vtt'));
+
+                    if ($extension == 'txt' || $extension == 'vtt') {
+                        Storage::disk('public')->put('subtitles/' . $update->m_name . '/' . $name, $file);
+                    } else {
+                        $subtitles = Subtitles::load($file, $extension);
+                        Storage::disk('public')->put('subtitles/' . $update->m_name . '/' . $name, $subtitles->content('vtt'));
+                    }
 
                     // Store Data
                     $sub = new Subtitle();
@@ -440,7 +446,7 @@ class MovieController extends Controller
                 $delete->delete();
             } else {
                 // Remove video
-                Storage::disk('public')->deleteDirectory('videos/' . $delete->m_name . '/');
+                Storage::disk('public')->deleteDirectory('movies/' . $delete->m_name . '/');
                 // Remove subtitle
                 Storage::disk('public')->deleteDirectory('subtitles/' . $delete->m_name . '/');
                 $delete->delete();
@@ -1050,15 +1056,32 @@ class MovieController extends Controller
 
                 // Upload video to Storage
                 $file = $request->file('video');
-                $path = Storage::disk('public')->put('temp', $file);
+                //$path = Storage::disk('public')->put('temp', $file);
+
+                $newNameMP4 = str_random(20) . '-720.mp4';
+
+                Storage::disk('public')->putFileAs('movies/' . $getMovie->m_name . '/', $file, $newNameMP4);
+
+                $output_path = '/storage/movies/' . $getMovie->m_name;
+                $cloud_name = 'public';
+
+                $video = new Video();
+                $video->video_cloud = 'local';
+                $video->movie_id = $request->id;
+                $video->resolution = '720';
+                $video->video_url = $output_path . '/' . $newNameMP4;
+                $video->video_format = 'mp4';
+
+                $video->save();
+
                 // $path = Storage::disk('public')->put('movies/' . $getMovie->m_name, $file);
 
                 // Transcode Video To Mp4
-                $transcode = $this->transcodeVideoToMp4($resolution, $request->id, $path, $request->tmdb_id, 'local', $getMovie->m_name, $file);
+                //$transcode = $this->transcodeVideoToMp4($resolution, $request->id, $path, $request->tmdb_id, 'local', $getMovie->m_name, $file);
 
-                if (!$transcode) {
-                    return response()->json(['status' => 'failed', 'message' => 'Failed to transcode video'], 422);
-                }
+                //if (!$transcode) {
+                //   return response()->json(['status' => 'failed', 'message' => 'Failed to transcode video'], 422);
+                //}
             }
 
             //   Storage::deleteDirectory('public/temp');

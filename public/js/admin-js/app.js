@@ -1,4 +1,4 @@
-webpackJsonp([1],{
+webpackJsonp([0],{
 
 /***/ "./node_modules/alertify.js/dist/js/alertify.js":
 /***/ (function(module, exports, __webpack_require__) {
@@ -385,6 +385,18 @@ var alertify = __webpack_require__("./node_modules/alertify.js/dist/js/alertify.
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_upload_modal__ = __webpack_require__("./resources/assets/js/admin/views/components/upload-modal.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_upload_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_upload_modal__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1491,6 +1503,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 var alertify = __webpack_require__("./node_modules/alertify.js/dist/js/alertify.js");
 
@@ -1539,6 +1554,9 @@ var alertify = __webpack_require__("./node_modules/alertify.js/dist/js/alertify.
                     });
                 }
             });
+        },
+        DISCOVER: function DISCOVER(id, key) {
+            this.$store.dispatch("ADD_TO_DISCOVER", { id: id, key: key });
         },
         ACTIVE: function ACTIVE(id, key, type) {
             this.$store.dispatch("ACTIVE_CATEGORY", { id: id, type: type, key: key });
@@ -2318,6 +2336,115 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/admin/views/discover-categories/manage.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_loader__ = __webpack_require__("./resources/assets/js/admin/views/components/loader.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_loader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_loader__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var alertify = __webpack_require__("./node_modules/alertify.js/dist/js/alertify.js");
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            kind: 'movie'
+        };
+    },
+
+    components: {
+        Loader: __WEBPACK_IMPORTED_MODULE_1__components_loader___default.a
+    },
+    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
+        data: function data(state) {
+            return state.categories.data;
+        },
+        button_loading: function button_loading(state) {
+            return state.categories.button_loading;
+        },
+        spinner_loading: function spinner_loading(state) {
+            return state.categories.spinner_loading;
+        }
+    }),
+    created: function created() {
+        this.$store.dispatch("GET_ALL_DISCOVER_CATEGORIES");
+    },
+
+    methods: {
+        DELETE: function DELETE(id, key) {
+            var _this = this;
+
+            swal({
+                title: "Are you sure to delete?",
+                icon: "warning",
+                text: "All videos and subtitles will removed!",
+                buttons: true,
+                dangerMode: true
+            }).then(function (willDelete) {
+                if (willDelete) {
+                    _this.$store.dispatch("DELETE_CATEGORY", {
+                        id: id,
+                        key: key
+                    });
+                }
+            });
+        }
+    }
 });
 
 /***/ }),
@@ -60421,7 +60548,11 @@ var render = function() {
                                 _c("div", { staticClass: "col-12" }, [
                                   _c("input", {
                                     staticClass: "inputfile",
-                                    attrs: { type: "file", id: "video" },
+                                    attrs: {
+                                      type: "file",
+                                      id: "video",
+                                      multiple: ""
+                                    },
                                     on: {
                                       change: function($event) {
                                         _vm.infoShow(
@@ -60435,11 +60566,7 @@ var render = function() {
                                   _c(
                                     "label",
                                     {
-                                      attrs: {
-                                        id: "videoLabel",
-                                        for: "video",
-                                        multiple: ""
-                                      }
+                                      attrs: { id: "videoLabel", for: "video" }
                                     },
                                     [
                                       _vm._v(
@@ -62213,8 +62340,8 @@ var render = function() {
                       {
                         name: "validate",
                         rawName: "v-validate",
-                        value: "required|max:30",
-                        expression: "'required|max:30'"
+                        value: "required|max:100",
+                        expression: "'required|max:100'"
                       },
                       {
                         name: "model",
@@ -63838,6 +63965,125 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-4b595ad5", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-592b9d07\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/admin/views/discover-categories/manage.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "categories" }, [
+    _vm.spinner_loading
+      ? _c("div", { staticClass: "spinner-load" }, [_c("Loader")], 1)
+      : _vm._e(),
+    _vm._v(" "),
+    !_vm.spinner_loading
+      ? _c("div", { staticClass: "k1_manage_table" }, [
+          _c("h5", { staticClass: "title p-2" }, [
+            _vm._v("Discover Categories")
+          ]),
+          _vm._v(" "),
+          _vm.data.categories !== null
+            ? _c("div", { staticClass: "table-responsive mt-2" }, [
+                _c("div", { staticClass: "table table-hover" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.data.categories, function(item, index) {
+                      return _c("tr", { key: index }, [
+                        _c("td", [_vm._v(_vm._s(item.name))]),
+                        _vm._v(" "),
+                        item.kind == "movie"
+                          ? _c("td", [_vm._v("Movies Page")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        item.kind == "series"
+                          ? _c("td", [_vm._v("TV Show Page")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        item.kind == "kids"
+                          ? _c("td", [_vm._v("Kids Page")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        item.kind == "live"
+                          ? _c("td", [_vm._v("Live TV Page")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.created_at))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.updated_at))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "btn-group",
+                              attrs: { role: "group" }
+                            },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-sm btn-danger btn-sm mr-2",
+                                  attrs: { id: item.id },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.DELETE(item.id, index)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Delete\n                            "
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ])
+                      ])
+                    })
+                  )
+                ])
+              ])
+            : _c("div", { staticClass: "text-center" }, [
+                _c("h4", [_vm._v("No result were found")])
+              ])
+        ])
+      : _vm._e()
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("th", [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Section")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Created date")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Updated date")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Control")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-592b9d07", module.exports)
   }
 }
 
@@ -66714,8 +66960,8 @@ var render = function() {
                         {
                           name: "validate",
                           rawName: "v-validate",
-                          value: "required|max:60",
-                          expression: "'required|max:60'"
+                          value: "required|max:100",
+                          expression: "'required|max:100'"
                         },
                         {
                           name: "model",
@@ -67948,6 +68194,33 @@ var render = function() {
                           [
                             _c(
                               "router-link",
+                              {
+                                attrs: {
+                                  to: { name: "discover-categories-manage" }
+                                }
+                              },
+                              [
+                                _c("img", {
+                                  attrs: {
+                                    src:
+                                      "/themes/default/img/admin/categories.svg",
+                                    alt: "Categories",
+                                    width: "20px"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("strong", [_vm._v("Discover Categories")])
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "li",
+                          [
+                            _c(
+                              "router-link",
                               { attrs: { to: { name: "tv-manage" } } },
                               [
                                 _c("img", {
@@ -68610,6 +68883,32 @@ var render = function() {
                             }),
                             _vm._v(" "),
                             _c("strong", [_vm._v("Categories")])
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            attrs: {
+                              to: { name: "discover-categories-manage" }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              attrs: {
+                                src: "/themes/default/img/admin/categories.svg",
+                                alt: "Categories",
+                                width: "20px"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("strong", [_vm._v("Discover")])
                           ]
                         )
                       ],
@@ -71740,6 +72039,25 @@ var render = function() {
                                 [
                                   _vm._v(
                                     "\n                                Edit\n                            "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-sm btn-warning btn-sm mr-2",
+                                  attrs: { id: item.id },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.DISCOVER(item.id, index)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Discover\n                            "
                                   )
                                 ]
                               ),
@@ -79667,6 +79985,10 @@ var routes = [{
     name: 'categories-manage',
     component: __webpack_require__("./resources/assets/js/admin/views/categories/manage.vue")
 }, {
+    path: '/discover-categories/manage',
+    name: 'discover-categories-manage',
+    component: __webpack_require__("./resources/assets/js/admin/views/discover-categories/manage.vue")
+}, {
     path: '/category/create',
     name: 'create-category',
     component: __webpack_require__("./resources/assets/js/admin/views/categories/create.vue")
@@ -80071,11 +80393,28 @@ var module = {
                 key = _ref4.key;
 
             commit('BUTTON_LOAD', id);
-            axios.delete('/api/admin/delete/category/' + id).then(function (response) {
+            axios.delete('/api/admin/delete/discover-category/' + id).then(function (response) {
                 if (response.status === 200) {
                     alertify.logPosition('top right');
                     alertify.success('Successful Delete');
                     commit('DELETE_CATEGORY', key);
+                    commit('BUTTON_CLEAN');
+                }
+            }, function (error) {
+                alertify.logPosition('top right');
+                alertify.error(error.response.data.message);
+                commit('BUTTON_CLEAN');
+            });
+        },
+        ADD_TO_DISCOVER: function ADD_TO_DISCOVER(_ref5, _ref6) {
+            var commit = _ref5.commit;
+            var id = _ref6.id;
+
+            commit('BUTTON_LOAD', id);
+            axios.post('/api/admin/add/discover-category/', { category_id: id }).then(function (response) {
+                if (response.status === 200) {
+                    alertify.logPosition('top right');
+                    alertify.success('Successfully added to discover');
                     commit('BUTTON_CLEAN');
                 }
             }, function (error) {
@@ -80092,11 +80431,11 @@ var module = {
          * @param {*} id  uuid
          * @param {*} key int
          */
-        ACTIVE_CATEGORY: function ACTIVE_CATEGORY(_ref5, _ref6) {
-            var commit = _ref5.commit;
-            var id = _ref6.id,
-                type = _ref6.type,
-                key = _ref6.key;
+        ACTIVE_CATEGORY: function ACTIVE_CATEGORY(_ref7, _ref8) {
+            var commit = _ref7.commit;
+            var id = _ref8.id,
+                type = _ref8.type,
+                key = _ref8.key;
 
             commit('BUTTON_LOAD', id);
             axios.post('/api/admin/update/active/category', { id: id, type: type }).then(function (response) {
@@ -80264,6 +80603,92 @@ var module = {
         },
         STREAMING_STATUE: function STREAMING_STATUE(state, data) {
             state.data.channels[data.key].streaming_status = data.status;
+        },
+        BUTTON_LOAD: function BUTTON_LOAD(state, data) {
+            state.button_loading = data;
+        },
+        BUTTON_CLEAN: function BUTTON_CLEAN(state) {
+            state.button_loading = false;
+        },
+        SPINER_LOAD: function SPINER_LOAD(state) {
+            state.spinner_loading = true;
+        },
+        SPINER_CLEAN: function SPINER_CLEAN(state) {
+            state.spinner_loading = false;
+        }
+    },
+    getters: {}
+};
+/* harmony default export */ __webpack_exports__["a"] = (module);
+
+/***/ }),
+
+/***/ "./resources/assets/js/admin/store/modules/discover-categories.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var alertify = __webpack_require__("./node_modules/alertify.js/dist/js/alertify.js");
+
+var module = {
+    state: {
+        data: [],
+        button_loading: false,
+        spinner_loading: false
+    },
+    actions: {
+
+        /**
+         * Get all channels
+         *
+         * @param {*} commit object
+         * @param id int id
+         */
+        GET_ALL_DISCOVER_CATEGORIES: function GET_ALL_DISCOVER_CATEGORIES(_ref, kind) {
+            var commit = _ref.commit;
+
+            commit('SPINER_LOAD');
+            axios.get('/api/admin/get/discover-categories').then(function (response) {
+                if (response.status === 200) {
+                    console.log(response.data);
+                    commit('SET_CATEGORIES', response.data.data);
+                    commit('SPINER_CLEAN');
+                }
+            });
+        },
+
+
+        /**
+         * Delete channels
+         *
+         * @param {*} id  uuid
+         * @param {*} key int
+         */
+        DELETE_CATEGORY: function DELETE_CATEGORY(_ref2, _ref3) {
+            var commit = _ref2.commit;
+            var id = _ref3.id,
+                key = _ref3.key;
+
+            commit('BUTTON_LOAD', id);
+            axios.delete('/api/admin/delete/discover-category/' + id).then(function (response) {
+                if (response.status === 200) {
+                    alertify.logPosition('top right');
+                    alertify.success('Successful Delete');
+                    commit('DELETE_CATEGORY', key);
+                    commit('BUTTON_CLEAN');
+                }
+            }, function (error) {
+                alertify.logPosition('top right');
+                alertify.error(error.response.data.message);
+                commit('BUTTON_CLEAN');
+            });
+        }
+    },
+    mutations: {
+        SET_CATEGORIES: function SET_CATEGORIES(state, data) {
+            state.data = data;
+        },
+        DELETE_CATEGORY: function DELETE_CATEGORY(state, key) {
+            state.data.categories.splice(key, 1);
         },
         BUTTON_LOAD: function BUTTON_LOAD(state, data) {
             state.button_loading = data;
@@ -81783,7 +82208,9 @@ var module = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__modules_admins__ = __webpack_require__("./resources/assets/js/admin/store/modules/admins.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__modules_support__ = __webpack_require__("./resources/assets/js/admin/store/modules/support.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_categories__ = __webpack_require__("./resources/assets/js/admin/store/modules/categories.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__modules_event__ = __webpack_require__("./resources/assets/js/admin/store/modules/event.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__modules_discover_categories__ = __webpack_require__("./resources/assets/js/admin/store/modules/discover-categories.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_event__ = __webpack_require__("./resources/assets/js/admin/store/modules/event.js");
+
 
 
 
@@ -81815,7 +82242,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
         admins: __WEBPACK_IMPORTED_MODULE_10__modules_admins__["a" /* default */],
         support: __WEBPACK_IMPORTED_MODULE_11__modules_support__["a" /* default */],
         categories: __WEBPACK_IMPORTED_MODULE_12__modules_categories__["a" /* default */],
-        event: __WEBPACK_IMPORTED_MODULE_13__modules_event__["a" /* default */]
+        discoverCategories: __WEBPACK_IMPORTED_MODULE_13__modules_discover_categories__["a" /* default */],
+        event: __WEBPACK_IMPORTED_MODULE_14__modules_event__["a" /* default */]
     }
 }));
 
@@ -82288,6 +82716,54 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-497e3931", Component.options)
   } else {
     hotAPI.reload("data-v-497e3931", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/admin/views/discover-categories/manage.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/admin/views/discover-categories/manage.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-592b9d07\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/admin/views/discover-categories/manage.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/admin/views/discover-categories/manage.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-592b9d07", Component.options)
+  } else {
+    hotAPI.reload("data-v-592b9d07", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

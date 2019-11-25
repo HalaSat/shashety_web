@@ -196,6 +196,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('/api/admin/get/categories/sort/{id}', 'Admin\CategoriesController@getCategoryBySort');
 });
 
-Route::post('/bot/admin/new/movie/movieapi', 'Admin\BotMovieController@movieTmdbAPI');
-Route::post('/bot/admin/new/movie/movievideo', 'Admin\BotMovieController@movieUpload');
-Route::post('/bot/admin/new/movie/moviesubtitle', 'Admin\BotMovieController@subtitleUpload');
+Route::post('/api/admin/add/discover-category', 'Admin\DiscoverCategoriesController@createCategory');
+Route::get('/api/admin/get/discover-categories', 'Admin\DiscoverCategoriesController@getAllCategories');
+Route::delete('/api/admin/delete/discover-category/{id}', 'Admin\DiscoverCategoriesController@deleteCategory');

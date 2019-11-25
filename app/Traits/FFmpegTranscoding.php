@@ -96,18 +96,18 @@ trait FFmpegTranscoding
 
 
         // Delete folder
-        Storage::deleteDirectory('public/' .$path_upload . '/nonenc');
+        Storage::deleteDirectory('public/' . $path_upload . '/nonenc');
 
         return true;
     }
 
     public function encTsFiles($id, $keyName)
     {
-        $directory1 = storage_path('/app/public/'.  $id . '/nonenc/');
+        $directory1 = storage_path('/app/public/' .  $id . '/nonenc/');
 
         // create key to each segment
-        $keyFilePath = '"' . storage_path('/app/public/'.  $id .'/'. $keyName) . '"';
-        $key = exec("openssl rand 16 >". $keyFilePath);
+        $keyFilePath = '"' . storage_path('/app/public/' .  $id . '/' . $keyName) . '"';
+        $key = exec("openssl rand 16 >" . $keyFilePath);
 
 
         foreach (glob($directory1 . '*.ts') as $url) {
@@ -116,7 +116,7 @@ trait FFmpegTranscoding
 
             // Create iv
             $iv = exec("hexdump -v -e '16/1 \"%02x\"' $keyFilePath");
-            $outputPath =  '"' . storage_path('/app/public/'.  $id . $orjName . '.ts') . '"';
+            $outputPath =  '"' . storage_path('/app/public/' .  $id . $orjName . '.ts') . '"';
             $urlSp = '"' . $url . '"';
             $encrypted = exec("openssl aes-128-cbc -e -in $urlSp -out $outputPath -nosalt -iv $iv -K $iv");
         }
@@ -124,45 +124,45 @@ trait FFmpegTranscoding
 
     public function modM3U8File($lowBitrate, $midBitrate, $highBitrate, $veryHighBitrate, $ultreHighBitrate, $name, $id)
     {
-        $directory2 = storage_path('/app/public/'.  $id. '/');
+        $directory2 = storage_path('/app/public/' .  $id . '/');
 
 
         // Move Master Playlist File
-        $moveFile = File::move(storage_path('/app/public/'.  $id . '/nonenc/'. $name.'.m3u8'), storage_path('/app/public/'. $id . $name.'.m3u8'));
+        $moveFile = File::move(storage_path('/app/public/' .  $id . '/nonenc/' . $name . '.m3u8'), storage_path('/app/public/' . $id . $name . '.m3u8'));
 
         // Add RESOLUTION
         if ($moveFile) {
             if ($lowBitrate) {
-                $getMasPlaylist = File::get(storage_path('/app/public/'.  $id . $name.'.m3u8'));
+                $getMasPlaylist = File::get(storage_path('/app/public/' .  $id . $name . '.m3u8'));
                 $strUriReplice = str_replace("BANDWIDTH=400000", "BANDWIDTH=400000,RESOLUTION=640x360", $getMasPlaylist);
-                $putChange = File::put(storage_path('/app/public/'. $id . $name . '.m3u8'), $strUriReplice);
+                $putChange = File::put(storage_path('/app/public/' . $id . $name . '.m3u8'), $strUriReplice);
             }
             if ($midBitrate) {
-                $getMasPlaylist = File::get(storage_path('/app/public/'.  $id . $name.'.m3u8'));
+                $getMasPlaylist = File::get(storage_path('/app/public/' .  $id . $name . '.m3u8'));
                 $strUriReplice = str_replace("BANDWIDTH=700000", "BANDWIDTH=700000,RESOLUTION=854x480", $getMasPlaylist);
-                $putChange = File::put(storage_path('/app/public/'.  $id . $name . '.m3u8'), $strUriReplice);
+                $putChange = File::put(storage_path('/app/public/' .  $id . $name . '.m3u8'), $strUriReplice);
             }
             if ($highBitrate) {
-                $getMasPlaylist = File::get(storage_path('/app/public/'.  $id . $name.'.m3u8'));
+                $getMasPlaylist = File::get(storage_path('/app/public/' .  $id . $name . '.m3u8'));
                 $strUriReplice = str_replace("BANDWIDTH=1500000", "BANDWIDTH=1500000,RESOLUTION=1280x720", $getMasPlaylist);
-                $putChange = File::put(storage_path('/app/public/'.  $id . $name . '.m3u8'), $strUriReplice);
+                $putChange = File::put(storage_path('/app/public/' .  $id . $name . '.m3u8'), $strUriReplice);
             }
             if ($veryHighBitrate) {
-                $getMasPlaylist = File::get(storage_path('/app/public/'.  $id. $name.'.m3u8'));
+                $getMasPlaylist = File::get(storage_path('/app/public/' .  $id . $name . '.m3u8'));
                 $strUriReplice = str_replace("BANDWIDTH=3000000", "BANDWIDTH=3000000,RESOLUTION=1920x1080", $getMasPlaylist);
-                $putChange = File::put(storage_path('/app/public/'.  $id . $name . '.m3u8'), $strUriReplice);
+                $putChange = File::put(storage_path('/app/public/' .  $id . $name . '.m3u8'), $strUriReplice);
             }
             if ($ultreHighBitrate) {
-                $getMasPlaylist = File::get(storage_path('/app/public/'.  $id. $name.'.m3u8'));
+                $getMasPlaylist = File::get(storage_path('/app/public/' .  $id . $name . '.m3u8'));
                 $strUriReplice = str_replace("BANDWIDTH=10000000", "BANDWIDTH=10000000,RESOLUTION=3840x2160", $getMasPlaylist);
-                $putChange = File::put(storage_path('/app/public/'.  $id . $name . '.m3u8'), $strUriReplice);
+                $putChange = File::put(storage_path('/app/public/' .  $id . $name . '.m3u8'), $strUriReplice);
             }
         }
 
 
         // 360P
         if ($lowBitrate) {
-            $getFile = File::get(storage_path('/app/public/'.  $id . '/nonenc/' . $name . '_400.m3u8'));
+            $getFile = File::get(storage_path('/app/public/' .  $id . '/nonenc/' . $name . '_400.m3u8'));
             $strUriReplice = explode("\n", $getFile);
 
             foreach (glob($directory2 . '*.key') as $url) {
@@ -174,14 +174,14 @@ trait FFmpegTranscoding
             }
 
             $outFile = implode("\n", $strUriReplice);
-            File::put(storage_path('/app/public/'.  $id . $name . '_400.m3u8'), $outFile);
+            File::put(storage_path('/app/public/' .  $id . $name . '_400.m3u8'), $outFile);
         }
 
 
 
         // 480P
         if ($midBitrate) {
-            $getFile = File::get(storage_path('/app/public/'.  $id . '/nonenc/' . $name . '_700.m3u8'));
+            $getFile = File::get(storage_path('/app/public/' .  $id . '/nonenc/' . $name . '_700.m3u8'));
             $strUriReplice = explode("\n", $getFile);
 
             foreach (glob($directory2 . '*.key') as $url) {
@@ -193,12 +193,12 @@ trait FFmpegTranscoding
             }
 
             $outFile = implode("\n", $strUriReplice);
-            File::put(storage_path('/app/public/'.  $id . $name . '_700.m3u8'), $outFile);
+            File::put(storage_path('/app/public/' .  $id . $name . '_700.m3u8'), $outFile);
         }
 
         // 720P
         if ($highBitrate) {
-            $getFile = File::get(storage_path('/app/public/'.  $id . '/nonenc/' . $name . '_1500.m3u8'));
+            $getFile = File::get(storage_path('/app/public/' .  $id . '/nonenc/' . $name . '_1500.m3u8'));
             $strUriReplice = explode("\n", $getFile);
             foreach (glob($directory2 . '*.key') as $url) {
                 $keyName = substr($url, strrpos($url, '/') + 1);
@@ -208,12 +208,12 @@ trait FFmpegTranscoding
                 $strUriReplice[5] = "#EXT-X-KEY:METHOD=AES-128,URI=\"$keyName\"\n" . $l4;
             }
             $outFile = implode("\n", $strUriReplice);
-            File::put(storage_path('/app/public/'.  $id . $name . '_1500.m3u8'), $outFile);
+            File::put(storage_path('/app/public/' .  $id . $name . '_1500.m3u8'), $outFile);
         }
 
         // 1080P
         if ($veryHighBitrate) {
-            $getFile = File::get(storage_path('/app/public/'.  $id . '/nonenc/' . $name . '_3000.m3u8'));
+            $getFile = File::get(storage_path('/app/public/' .  $id . '/nonenc/' . $name . '_3000.m3u8'));
             $strUriReplice = explode("\n", $getFile);
 
             foreach (glob($directory2 . '*.key') as $url) {
@@ -224,12 +224,12 @@ trait FFmpegTranscoding
                 $strUriReplice[5] = "#EXT-X-KEY:METHOD=AES-128,URI=\"$keyName\"\n" . $l4;
             }
             $outFile = implode("\n", $strUriReplice);
-            File::put(storage_path('/app/public/'.  $id . $name . '_3000.m3u8'), $outFile);
+            File::put(storage_path('/app/public/' .  $id . $name . '_3000.m3u8'), $outFile);
         }
 
         // 4K
         if ($ultreHighBitrate) {
-            $getFile = File::get(storage_path('/app/public/'.  $id. '/nonenc/' . $name . '_10000.m3u8'));
+            $getFile = File::get(storage_path('/app/public/' .  $id . '/nonenc/' . $name . '_10000.m3u8'));
             $strUriReplice = explode("\n", $getFile);
 
             foreach (glob($directory2 . '*.key') as $url) {
@@ -240,7 +240,7 @@ trait FFmpegTranscoding
                 $strUriReplice[5] = "#EXT-X-KEY:METHOD=AES-128,URI=\"$keyName\"\n" . $l4;
             }
             $outFile = implode("\n", $strUriReplice);
-            File::put(storage_path('/app/public/'. $id  . '/' . $name . '_10000.m3u8'), $outFile);
+            File::put(storage_path('/app/public/' . $id  . '/' . $name . '_10000.m3u8'), $outFile);
         }
     }
 
@@ -466,7 +466,7 @@ trait FFmpegTranscoding
                 $video->video_cloud = $cloud;
                 $video->movie_id = $id;
                 $video->resolution = '480';
-                $video->video_url = $output_path. '/' . $newNameMP4;
+                $video->video_url = $output_path . '/' . $newNameMP4;
                 $video->video_format = 'mp4';
 
                 $video->save();
@@ -491,7 +491,7 @@ trait FFmpegTranscoding
                         if ($this->Watermark !== null) {
                             $filters->watermark(storage_path('/app/public/watermark/' . Transcoder::first()->watermark_url), $this->Watermark);
                         }
-		    })
+                    })
                     ->export()
                     ->toDisk($cloud_name)
                     ->inFormat($lowBitrate)
@@ -617,11 +617,7 @@ trait FFmpegTranscoding
         }
 
         // Set FFmpeg Command
-        $ffmpegCommand =
-            (is_null($veryHighBitrate) ? ' ' : $veryHighBitrate) .
-            (is_null($highBitrate) ? ' ' : $highBitrate) .
-            (is_null($midBitrate) ? ' ' : $midBitrate) .
-            (is_null($lowBitrate) ? ' ' : $lowBitrate);
+        $ffmpegCommand = (is_null($veryHighBitrate) ? ' ' : $veryHighBitrate) . (is_null($highBitrate) ? ' ' : $highBitrate) . (is_null($midBitrate) ? ' ' : $midBitrate) . (is_null($lowBitrate) ? ' ' : $lowBitrate);
 
         $pid = exec($ffmpegCommand . ' > /dev/null 2>&1 & echo $!; ', $output);
 

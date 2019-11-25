@@ -241,9 +241,14 @@ class SeriesController extends Controller
 
                 foreach ($request->file('subtitleUpload') as $key => $value) {
                     $file = file_get_contents($value);
-                    $subtitles = Subtitles::load($file, 'srt');
+                    $extension = $value->getClientOriginalExtension();
                     $name = uniqid('subtitle_') . '.vtt';
-                    Storage::disk('public')->put('subtitles/' . $getSeries->t_name . '/' . $checkEpisode->name . '_' . $checkEpisode->season_number . '_' . $checkEpisode->episode_number . '/' . $name, $subtitles->content('vtt'));
+                    if ($extension == 'txt' || $extension == 'vtt') {
+                        Storage::disk('public')->put('subtitles/' . $getSeries->t_name . '/' . $checkEpisode->name . '_' . $checkEpisode->season_number . '_' . $checkEpisode->episode_number . '/' . $name, $file);
+                    } else {
+                        $subtitles = Subtitles::load($file, $extension);
+                        Storage::disk('public')->put('subtitles/' . $getSeries->t_name . '/' . $checkEpisode->name . '_' . $checkEpisode->season_number . '_' . $checkEpisode->episode_number . '/' . $name, $subtitles->content('vtt'));
+                    }
 
                     // Store Data
                     $sub = new Subtitle();
@@ -481,7 +486,7 @@ class SeriesController extends Controller
             $delete->delete();
         } else {
             // Remove video
-            Storage::disk('public')->deleteDirectory('videos/' . $delete->t_name . '/');
+            Storage::disk('public')->deleteDirectory('series/' . $delete->t_id . '/');
             // Remove subtitle
             Storage::disk('public')->deleteDirectory('subtitles/' . $delete->t_name . '/');
 
@@ -1452,16 +1457,36 @@ class SeriesController extends Controller
                 if ($idEpisodeList[$videoKey]->episode_number == strtok($videoValue->getClientOriginalName(), '.')) {
 
                     // upload videos episode
-                    $path = Storage::disk('public')->put('temp', $videoValue);
-                    $listVideoNameAndId[$videoKey]['id'] = $idEpisodeList[$videoKey]->id;
-                    $listVideoNameAndId[$videoKey]['path'] = $path;
-                    $listVideoNameAndId[$videoKey]['episode_number'] = $idEpisodeList[$videoKey]->episode_number;
-                    $listVideoNameAndId[$videoKey]['episode_name'] = $idEpisodeList[$videoKey]->episode_name;
-                    $listVideoNameAndId[$videoKey]['season_number'] = $idEpisodeList[$videoKey]->season_number;
+                    // $path = Storage::disk('public')->put('temp', $videoValue);
+
+                    $path_upload = 'series/' . $request->series_id . '/' . 'season_' .  $idEpisodeList[$videoKey]->season_number . '_' . $idEpisodeList[$videoKey]->episode_number . '/';
+
+
+                    $newNameMP4 = str_random(20) . '.mp4';
+
+                    Storage::disk('public')->putFileAs($path_upload . '/', $videoValue, $newNameMP4);
+
+                    // Store video data
+                    $video = new Video();
+                    $video->episode_id = $idEpisodeList[$videoKey]->id;
+                    $video->resolution = '720';
+                    $video->video_url = '/storage/' . $path_upload . '/' . $newNameMP4;
+                    $video->video_cloud = 'local';
+                    $video->video_format = 'mp4';
+                    $video->save();
+
+                    return response()->json(['status' => 'success', 'message' => 'Successfully uploaded video to local cloud'], 200);
+
+                    // $listVideoNameAndId[$videoKey]['id'] = $idEpisodeList[$videoKey]->id;
+                    // $listVideoNameAndId[$videoKey]['path'] = $path;
+                    // $listVideoNameAndId[$videoKey]['episode_number'] = $idEpisodeList[$videoKey]->episode_number;
+                    // $listVideoNameAndId[$videoKey]['episode_name'] = $idEpisodeList[$videoKey]->episode_name;
+                    // $listVideoNameAndId[$videoKey]['season_number'] = $idEpisodeList[$videoKey]->season_number;
                 } else {
-                    return response(['status' => 'failed', 'message' => 'Please check if the video name is same episode number.'], 422);
+                    return response(['status' => 'failed', 'message' => 'Please check if the video name is the same episode number.'], 422);
                 }
             }
+            return true;
 
             // Decode Persets Json
             $resolution = json_decode($request->resolution, true);
