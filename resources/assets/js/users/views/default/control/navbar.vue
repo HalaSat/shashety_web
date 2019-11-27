@@ -191,6 +191,7 @@
                                 </div>
                             </router-link>
                         </div>
+                        
                     </div>
                 </div>
             </nav>
@@ -468,6 +469,7 @@
                         <li class="nav-item">
                             <router-link class="nav-link" :to="{name: 'channels'}">{{$t('home.tv')}} </router-link>
                         </li>
+                     
 
                         <li class="nav-item" v-if="collections.length > 0">
 
@@ -479,6 +481,9 @@
                                 </div>
                             </div>
 
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link languager" v-on:click="changeLanguage">❝{{$i18n.locale.toUpperCase()}}</div>
                         </li>
 
                     </ul>
@@ -545,6 +550,7 @@
             }
         },
 
+
         computed: mapState({
             collections: state => state.collections.collections,
             showSearchPageEvent: state => state.event.show_search_page
@@ -588,6 +594,18 @@
 
             SHOW_SEARCH_PAGE(){
                 this.$store.commit("SHOW_SEARCH_PAGE");
+            },
+
+            changeLanguage() {
+                const locale = window.localStorage.getItem('locale');
+                if (locale == 'en') {
+                    window.localStorage.setItem('locale', 'ar')
+                    this.$i18n.locale = 'ar';
+                } else {
+                    window.localStorage.setItem('locale', 'en');
+                    this.$i18n.locale = 'en';
+                }
+               
             }
         },
         filters: {
@@ -598,3 +616,9 @@
         }
     }
 </script>
+
+<style>
+.languager {
+    color: white !important;
+}
+</style>

@@ -1475,7 +1475,6 @@ class SeriesController extends Controller
                     $video->video_format = 'mp4';
                     $video->save();
 
-                    return response()->json(['status' => 'success', 'message' => 'Successfully uploaded video to local cloud'], 200);
 
                     // $listVideoNameAndId[$videoKey]['id'] = $idEpisodeList[$videoKey]->id;
                     // $listVideoNameAndId[$videoKey]['path'] = $path;
@@ -1486,7 +1485,7 @@ class SeriesController extends Controller
                     return response(['status' => 'failed', 'message' => 'Please check if the video name is the same episode number.'], 422);
                 }
             }
-            return true;
+            return response()->json(['status' => 'success', 'message' => 'Successfully uploaded video to local cloud'], 200);
 
             // Decode Persets Json
             $resolution = json_decode($request->resolution, true);

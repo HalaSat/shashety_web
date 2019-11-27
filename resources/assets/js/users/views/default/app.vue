@@ -396,6 +396,10 @@
 
                     });
             } else {
+                const locale = window.localStorage.getItem('locale');
+                if (locale) {
+                     this.$i18n.locale = locale;
+                }
                 setTimeout(() => {
                     this.show_loading = false;
                 }, 1000);
